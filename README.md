@@ -35,7 +35,7 @@ In the remainder of this README file, we will outline the basic steps of our pro
 5. Processing and Modeling
 6. Proposed Next Steps
 
-### Data Collection
+### 1. Data Collection
 We resolved to use Twitter data for this version of this project.  In order to collect this data, we used a tried-and-true scraping method, purpose built into a scraping function for our data collection efforts in [1.0 Scraping Twitter Data](https://git.generalassemb.ly/boom-deva/project-4-FEMA-power-outages/blob/master/1_Data-Collection.ipynb).
 
 The basic theory of our scraping function is very simple; in practice we encountered avoidable setbacks that I will advise you on below.  Our scraper is an implementation of the excellent [twitterscraper](https://pypi.org/project/twitterscraper/0.2.7/) package, tuned to return a body of tweets containing specific words or terms, and posted within a specified time frame.  Both the keywords and timeframe are specified as arguments of the twitterscraper.query_tweets function.
@@ -44,14 +44,14 @@ Our basic scraper relies on very few prefiltering arguments and keywords by desi
 
 As I alluded to; our team encountered scraping issues with [this](https://git.generalassemb.ly/boom-deva/project-4-FEMA-power-outages/blob/master/1_Data-Collection.ipynb) scraping function.  Specifically, we very quickly overtaxed the Twitter API and were suspended from pulling more tweets, typically for a period of 2 or more days at a time.  This shouldn't be a big issue for a user who runs this scraper only once, but if you were to repeatedly use it, say, in the process of refining the prefiltering terms for the scraper, you will quickly be banned from acquiring new data - be warned.  
 
-### Data Cleaning
+### 2. Data Cleaning
 In order to format our data into a useful and uniform set, we used a concise [cleaning process](https://git.generalassemb.ly/boom-deva/project-4-FEMA-power-outages/blob/master/2_Data_Cleaning.ipynb), and added some new data of our own.  
 
 The most noteworthy development in our Data Clean deserves some explanation here.  While working on this project, our team quickly learned that Twitter does NOT keep usable location data in their html structure or json output.  While the Twitter API does include fields to store the city of origin, account owner location, and even latitude and longitude of the user at the time a tweet is posted, these fields are almost universally blank or unhelpful.  This is probably either because Twitter had deprecated location tracking, or many users choose to opt out, or a combination of these and other factors.  Suffice it to say that the location data was so incomplete in our scraped data, we are forced in this section to randomly impute location data as a proof-of-concept.  Consequently, the conclusions and data drawn from this point forward are purely demonstrative and are not informed by actual geographical data.  
 
 The final step of our data cleaning process was to combine the scraped tweets and imputed cities with a dataframe of all USA cities, including their coordinates, counties, et cetera.  This data will help us in mapping and other efforts later on. 
 
-### Exploratory Data Analysis
+### 3. Exploratory Data Analysis
 After cleaning our data, it's important to explore the characteristics of that data and build an understanding of it.  Our [EDA](https://git.generalassemb.ly/boom-deva/project-4-FEMA-power-outages/blob/master/3_EDA.ipynb) file begins the EDA process by;
 1. Reformatting the text of all scraped tweets
     - Removal of unusual characters/punctuation
@@ -62,12 +62,12 @@ After cleaning our data, it's important to explore the characteristics of that d
 
 This process helped us to identify new keywords that might be helpful, eliminate some that were not, and pointed out some important improvements we could make in the future, which will be outlined later on.  
 
-### Visualization and Mapping
+### 4. Visualization and Mapping
 In this section, we used the geodata we added and imputed in Data Cleaning, to generate geo-heatmaps that would help to identify "hotspots" of flagged power-outage related twitter chatter.  Our [mapping section](https://git.generalassemb.ly/boom-deva/project-4-FEMA-power-outages/blob/master/4.%20Visualizing%20-%20Bokeh.ipynb) uses [Bokeh](https://bokeh.pydata.org/en/latest/), a really terrific visualization tool. 
 
 Bokeh was useful here because we were able to create an interactive map that we believe will be of more use to our users than a static plot might've been.  In future updates, we envision a re-arrangement of our program that would enable very local searches for power-outage hotspots (for instance, within a county).  In this framework, the interactive mapping we've implemented will be useful for exploring the shape and extent of identified power outages.  
 
-### Processing and Modeling
+### 5. Processing and Modeling
 Our Processing and Modeling workflow is laid out and explained in great detail [here](https://git.generalassemb.ly/boom-deva/project-4-FEMA-power-outages/blob/master/4_NLP-Modeling.ipynb), and I highly recommend reading through it on a step-by-step basis within that file; but the overview of this process is very simple.
 
 As we've discussed before, our current working data does not include meaningful geographical information for individual tweets, which prevents us from empirically identifying tweets that occurred during blackouts.  Without a confirmed test set containing this information, our modeling options were extremely limited.  
@@ -76,7 +76,7 @@ We opted to implement a sentiment analysis through Natural Language Processing C
 
 Our NLPC model was able to generate meaningful predictions of power-outage-likelihood for each individual tweet, based on the language and 'sentiment' used in the tweets themselves.  
 
-### Proposed Next Steps
+### 6. Proposed Next Steps
 What couldn't we accomplish, given all the time in the world!  Sadly projects can't go on forever, and what is contained in this repo represents only a current working model - a prototype of what we believe could be an immensely helpful tool for disaster relief groups.
 
 First, lets take stock of what our program does currently.  Front-to-end, this program scrapes a large body of tweets, compares their language with a list of terms we generated that relate to power outages, and then classifies the tweets in that body into 2 groups - 'power outage' and 'no power outage' -  based on Natural Language Processing Classification.  This process is sound, but it suffers from a number of shortcomings that can be addressed through a series of proposed updates below.  We offer the current version of this repository as a sort of sample; a proof-of-concept that can be built out into a much more robust tool with the following additions:
