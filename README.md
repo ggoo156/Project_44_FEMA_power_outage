@@ -7,7 +7,7 @@ The goal of this project is to geolocate power outages in the United States usin
 
 Your partners in Data-Driven Disaster Relief;
 
-[Adiwid Devahastin Na Ayudhya](https://www.linkedin.com/in/boom-devahastin), [Henry Blais](https://www.linkedin.com/in/henry-blais), and [Chris Lee](https://www.linkedin.com/in/sung-won-lee-495149150).
+[Adiwid Devahastin Na Ayudhya](https://www.linkedin.com/in/boom-devahastin), [Henry Blais](https://www.linkedin.com/in/henry-blais), and [Chris Lee](https://www.linkedin.com/in/sung-won-chris-lee).
 
 In cooperation with [GeneralAssembly](https://generalassemb.ly); January 2019.
 
